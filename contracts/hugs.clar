@@ -58,28 +58,19 @@
 (define-data-var last-group-id uint u0)
 
 (define-map metadata uint
-  {
-    creator: principal,
+  { creator: principal,
     uri: (string-ascii 256),
-    group-id: uint
-  }
-) 
+    group-id: uint }) 
 
 (define-map group-metadata uint
-  {
-    creator: principal,
+  { creator: principal,
     uri: (string-ascii 256),
-    count: uint
-  }
-)
+    count: uint })
 
 (define-map group-tokens 
-  {
-   group-id: uint,
-   index: uint
-  }
-  uint
-)
+  { group-id: uint,
+    index: uint }
+  uint)
 
 (define-map uris (string-ascii 256) uint)
 
@@ -179,13 +170,9 @@
                         (if (map-insert group-tokens { group-id: group-id, index: index } id)
                             result
                             (err FAILED_TO_ADD_METADATA))
-                        result
-                    )
-                  )
-                ) 
+                        result))) 
                 err-value
-                (err err-value))
-        ))))
+                (err err-value))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; public functions
@@ -226,15 +213,10 @@
                 inc-res
                 (ok ids)
                 err-val 
-                (err err-val)
-              )
-              (ok ids)             
-            )               
-          )
+                (err err-val))
+              (ok ids)))
           error
-          (err error)
-        )
-      ))))
+          (err error))))))
 
 
 (define-public (transfer (id uint) (sender principal) (recipient principal))
@@ -249,8 +231,7 @@
             (ok result)
             (err FAILED_TO_UPDATE_BALANCE))
         err-value
-        (err err-value)
-      ))))
+        (err err-value)))))
 
 
 (define-public (transfer-batch (ids (list 100 uint)) (sender principal) (recipient principal))
